@@ -1,9 +1,11 @@
 const inputFile = document.getElementById('file');
 const progress = document.getElementById('progress');
-progress.value = 0.7;
-const sendButton = document.getElementById('send');
+//progress.value = 0.7;
+const form = document.getElementById('form');
 
-sendButton.addEventListener('click', function() {
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
     const formData = new FormData();
     formData.append('file', inputFile.files[0]);
 
@@ -20,8 +22,8 @@ sendButton.addEventListener('click', function() {
     }
 };
 
-    xhr.upload.onload = function() {
-        if (xhr.status === 200) {
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
             // Обработка успешного ответа сервера
             console.log('Файл успешно загружен');
         } else {
